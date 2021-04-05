@@ -7,14 +7,17 @@ This file creates your application.
 
 from app import app
 from flask import render_template, request, redirect, url_for, flash
+from flask_cors import CORS, cross_origin 
 
 
+CORS(app, resources={r"/": {"origins": "*"}})
 ###
 # Routing for your application.
 ###
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
+@cross_origin(support_credentials=True, origin='*',headers=['Content- Type','Authorization', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Origin'])
 def index(path):
     """
     Because we use HTML5 history mode in vue-router we need to configure our
